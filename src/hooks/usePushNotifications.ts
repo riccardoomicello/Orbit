@@ -34,12 +34,14 @@ export function usePushNotifications() {
   }, [])
 
   const subscribe = async () => {
-    const sw = await navigator.serviceWorker.ready
+    // requestPermission deve venire prima di qualsiasi await su iOS
+    // altrimenti la catena gesture→permesso si rompe e il popup non appare
     const permission = await Notification.requestPermission()
     if (permission !== 'granted') {
       setStatus('denied')
       return
     }
+    const sw = await navigator.serviceWorker.ready
     const subscription = await sw.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
