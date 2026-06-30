@@ -20,7 +20,7 @@ export default function LoginPage() {
     setSubmitting(true)
     const { error } = await signIn(email, password)
     if (error) {
-      setError('Email o password non validi.')
+      setError(error.message)
       setSubmitting(false)
     } else {
       navigate('/')
