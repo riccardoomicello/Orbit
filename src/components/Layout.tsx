@@ -123,6 +123,7 @@ export default function Layout() {
   return (
     <div className="app-shell">
       <header className="header">
+       <div className="header-inner">
         <span className="header-title">Orbit</span>
         <div className="header-actions">
           {status !== 'unsupported' && (
@@ -143,6 +144,7 @@ export default function Layout() {
             <IconLogout />
           </button>
         </div>
+       </div>
       </header>
 
       <main className="main-content">

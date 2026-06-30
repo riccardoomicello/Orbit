@@ -66,15 +66,26 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: calc(56px + env(safe-area-inset-top));
+  display: flex;
+  flex-direction: column;
   background: var(--header-bg);
   border-bottom: 1px solid var(--border);
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header::before {
+  content: '';
+  display: block;
+  height: env(safe-area-inset-top);
+}
+
+.header-inner {
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: env(safe-area-inset-top) 16px 0;
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
+  padding: 0 16px;
 }
 
 .header-title {
@@ -110,7 +121,7 @@ body {
 .main-content {
   flex: 1;
   overflow-y: auto;
-  padding: calc(72px + env(safe-area-inset-top)) 16px calc(80px + env(safe-area-inset-bottom));
+  padding: calc(56px + env(safe-area-inset-top) + 16px) 16px calc(80px + env(safe-area-inset-bottom));
   max-width: 640px;
   width: 100%;
   margin: 0 auto;
