@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
+import { usePushNotifications } from '../hooks/usePushNotifications'
 
 function IconHome() {
   return (
@@ -86,6 +87,15 @@ function IconLogout() {
   )
 }
 
+function IconBell({ active }: { active: boolean }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill={active ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 01-3.46 0" />
+    </svg>
+  )
+}
+
 const navLinks = [
   { to: '/', label: 'Home', icon: <IconHome />, end: true },
   { to: '/appuntamenti', label: 'Agenda', icon: <IconCalendar />, end: false },
@@ -97,12 +107,35 @@ const navLinks = [
 export default function Layout() {
   const { theme, toggleTheme } = useTheme()
   const { signOut } = useAuth()
+  const { status, subscribe, unsubscribe } = usePushNotifications()
+
+  const handleBellClick = () => {
+    if (status === 'subscribed') unsubscribe()
+    else subscribe()
+  }
+
+  const bellLabel =
+    status === 'subscribed' ? 'Disattiva notifiche' :
+    status === 'denied' ? 'Notifiche bloccate dal browser' :
+    status === 'unsupported' ? 'Notifiche non supportate' :
+    'Attiva notifiche'
 
   return (
     <div className="app-shell">
       <header className="header">
         <span className="header-title">Orbit</span>
         <div className="header-actions">
+          {status !== 'unsupported' && (
+            <button
+              onClick={handleBellClick}
+              className="icon-btn"
+              aria-label={bellLabel}
+              title={bellLabel}
+              disabled={status === 'denied'}
+            >
+              <IconBell active={status === 'subscribed'} />
+            </button>
+          )}
           <button onClick={toggleTheme} className="icon-btn" aria-label="Cambia tema">
             {theme === 'light' ? <IconMoon /> : <IconSun />}
           </button>
