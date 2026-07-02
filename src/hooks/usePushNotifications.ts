@@ -50,11 +50,21 @@ export function usePushNotifications() {
       endpoint: string
       keys: { p256dh: string; auth: string }
     }
-    await supabase.from('push_subscriptions').upsert({
-      endpoint: json.endpoint,
-      p256dh: json.keys.p256dh,
-      auth: json.keys.auth,
-    })
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    const { error } = await supabase.from('push_subscriptions').upsert(
+      {
+        user_id: user.id,
+        endpoint: json.endpoint,
+        p256dh: json.keys.p256dh,
+        auth: json.keys.auth,
+      },
+      { onConflict: 'endpoint' }
+    )
+    if (error) {
+      console.error('push_subscriptions upsert failed', error)
+      return
+    }
     setStatus('subscribed')
   }
 

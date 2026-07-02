@@ -6,6 +6,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import AppuntamentiPage from './pages/AppuntamentiPage'
+import EventFormPage from './pages/EventFormPage'
+import EventDetailPage from './pages/EventDetailPage'
 import RoutinePage from './pages/RoutinePage'
 import FinanzaPage from './pages/FinanzaPage'
 import ExtraPage from './pages/ExtraPage'
@@ -21,6 +23,9 @@ export default function App() {
               <Route element={<Layout />}>
                 <Route index element={<DashboardPage />} />
                 <Route path="appuntamenti" element={<AppuntamentiPage />} />
+                <Route path="appuntamenti/nuovo" element={<EventFormPage />} />
+                <Route path="appuntamenti/:id" element={<EventDetailPage />} />
+                <Route path="appuntamenti/:id/modifica" element={<EventFormPage />} />
                 <Route path="routine" element={<RoutinePage />} />
                 <Route path="finanza" element={<FinanzaPage />} />
                 <Route path="extra" element={<ExtraPage />} />
