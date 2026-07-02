@@ -42,12 +42,13 @@ export interface EventOccurrence {
 
 export const CATEGORY_ORDER: EventCategory[] = ['salute', 'scadenze', 'hobby', 'viaggi', 'lavoro']
 
+// Colori semantici per categoria, fissi in entrambi i temi (badge/pill sempre leggibili su sfondo scuro dedicato)
 export const CATEGORY_META: Record<EventCategory, { label: string; dot: string; bg: string; text: string }> = {
-  salute: { label: 'Salute', dot: '#1D9E75', bg: '#0F6E56', text: '#9FE1CB' },
-  scadenze: { label: 'Scadenze', dot: '#FAC775', bg: '#633806', text: '#FAC775' },
-  hobby: { label: 'Hobby', dot: '#CECBF6', bg: '#3C3489', text: '#CECBF6' },
-  viaggi: { label: 'Viaggi', dot: '#B5D4F4', bg: '#185FA5', text: '#B5D4F4' },
-  lavoro: { label: 'Lavoro', dot: '#F09595', bg: '#3d1a1a', text: '#F09595' },
+  salute: { label: 'Salute', dot: '#22C55E', bg: '#0F3D22', text: '#86EFAC' },
+  scadenze: { label: 'Scadenze', dot: '#F59E0B', bg: '#4A2E06', text: '#FCD34D' },
+  hobby: { label: 'Hobby', dot: '#94A3B8', bg: '#2A3140', text: '#CBD5E1' },
+  viaggi: { label: 'Viaggi', dot: '#3B82F6', bg: '#1E3A5F', text: '#93C5FD' },
+  lavoro: { label: 'Lavoro', dot: '#EF4444', bg: '#450A0A', text: '#FCA5A5' },
 }
 
 export const REMINDER_OPTIONS: { value: number | null; label: string }[] = [
